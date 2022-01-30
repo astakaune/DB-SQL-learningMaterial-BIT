@@ -1,0 +1,18 @@
+New Table - naujos lenteles kurimas
+
+Name: date; 
+Type: TIMESTAMP - default value 1970;
+        VARCHAR - kiek leidziama ivesti simboliu
+Default: CURRENT_TIMESTAMP - 
+
+TABLE Collation: utf8_general_ci
+SAVE
+
+SQL
+
+
+INSERT INTO movie
+(Title, Director, Year, Length_min)
+VALUES ('MOANA', 'Ron Clements, John Musker', 2016, 102),
+('ZOOTOPIA', 'Rich Moore, Jared Bush, Byron Howard', 2016, 104),
+('SNOWTIME!', 'Jean-François Pouliot, François Brisson', 2015, 78);

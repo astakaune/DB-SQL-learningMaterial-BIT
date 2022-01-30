@@ -1,0 +1,177 @@
+
+https://www.youtube.com/watch?v=pWbMr
+
+cls - isvalo ekrana, paslepia visus irasus
+
+Comand Prompt - command line as adminsitrator
+cd .. - navigacija aukstyn dir medziu
+
+c:\mongodb\bin>mongo   - to work in mongo shell
+
+
+
+Darbas Command Prompt kaip adminas:
+
+1. SUkuriama duomenu baze db
+use dbpavadinimas
+
+2. pasirenkama db
+db
+
+3. sukuriamas user'is
+db.createUser({
+	user:"brad",
+	pwd:"1234",
+	roles:["readWrite", "dbAdmin"]
+});
+
+4. collection (lentele) sukurimas
+db.createCollection('collectionName');
+
+5. parodyti sukurtas collections
+show collections
+
+6. insert document into collection
+db.customers.insert({first_name:"John", last_name:"Doe"});
+
+7. insert more documents into collection su nauju stulpeliu Gender:
+ db.customers.insert([{first_name:"Steven", last_name:"Smith"},{first_name:"Joana", last_name:"Johnson", gender:"female"}]);
+
+8. to see documents in the collection
+db.customers.find();
+
+9. to show the documents in a clear way
+db.customers.find().pretty();
+
+10. to update and modify the document (perrasomi visi duomenys ir pridedamas parametras)
+db.customers.update({first_name:"John - pasirenkame ka koreguosime. siuo atveju, koreguos visus John'us"},{first_name:"John", last_name:"Doe", gender:"male"});
+
+11. modify the documents with $set. (paliekami visi esami duomenys ir pridedamas parametras gender)
+db.customers.update({first_name:"Steven"},{$set:{gender:"male"}});
+
+12. number increment by x
+db.customers.update({first_name:"Steven"},{$set:{age:45}});
+db.customers.update({first_name:"Stevens"},{$inc:{age:5}});
+
+13. to remove field
+db.customers.update({first_name:"Steven"},{$unset:{age:1}});
+
+14. iraso iterpimui naudojamas UPSERT
+db.customers.update({first_name:"Mary"},{first_name:"Mary", last_name:"Samson"},{upsert: true});
+
+15. iraso pavadinimo koregavimas
+db.customers.update({first_name:"Steven"},{$rename:{"gender":"sex"}});
+
+16. iraso "Steven" istrynimas
+db.customers.remove({first_name:"Steven"});
+
+17. pacio pirmo "Steven" iraso istrynimas
+db.customers.remove({first_name:"Steven"},{justOne:true});
+
+18. daugiau irasu pridejimas:
+db.customers.insert([
+{
+	first_name:"Troy",
+	last_name:"Makons",
+	gender:"male",
+	age:33,
+	address:{
+		street:"4 Main str.",
+		city:"Boston",
+		state:"MA"
+	},
+	memberships:["mem1", "mem2"],
+	balance:125.32
+},
+{
+	first_name:"Beth",
+	last_name: "Johnson",
+	gender:"female",
+	age:33,
+	address:{
+		street:"4 Main str.",
+		city:"New York",
+		state:"NY"
+	},
+	memberships:["mem1", "mem2"],
+	balance:225.53
+},
+{
+	first_name:"Sharon",
+	last_name: "Thompson",
+	gender:"female",
+	age:35,
+	address:{
+		street:"19 Wilis str.",
+		city:"Florida",
+		state:"FL"
+	},
+	memberships:["mem1", "mem2"],
+	balance:99.99
+},
+{
+	first_name:"Dick",
+	last_name: "Dickenson",
+	gender:"male",
+	age:89,
+	address:{
+		street:"39 Buleward str.",
+		city:"California",
+		state:"CA"
+	},
+	memberships:["mem1", "mem2"],
+	balance:999.55
+},
+{
+	first_name:"Tom",
+	last_name: "Cruise",
+	gender:"male",
+	age:55,
+	address:{
+		street:"88 Low str.",
+		city:"Visconsin",
+		state:"VS"
+	},
+	memberships:["mem1", "mem2"],
+	balance:55.55
+}
+]);
+
+
+19. Surasti irasus pagal varda "Sharon"
+db.customers.find({first_name:"Sharon"});
+
+20. Surasti irasus pagal keleta vardu
+db.customers.find({$or:[{first_name:"Sharon"},{first_name:"Troy"}]}).pretty();
+
+21. surasti visus irasus "male"
+db.customers.find({gender:"male"});
+
+22. Less than - lt< arba greater than - gt> arba lte less than or eaqual<=, gte >=.
+Surasti irasus jaunesnius uz 40 metu amziaus
+db.customers.find({age:{$lt:40}}).pretty();
+
+23. surasti visus gyvenancius Bostone
+db.customers.find({"address.city":"Boston"}).pretty();
+
+24. surasti visus irasus, turincius "mem1" narystę
+db.customers.find({memberships:"mem1"});
+
+25. rušiavimas SORT
+db.customers.find().sort({last_name:1});
+1 ASC ORDER
+-1 DESC ORDER
+
+26. COUNT documents
+db.customers.find().count();
+db.customers.find({gender:"female"}).count();
+
+27. LIMIT
+db.customers.find().limit(4);
+
+28. LIMIT + SORT
+db.customers.find().limit(4).sort({last_name:1});
+
+29. Iteravimas forEach
+db.customers.find().forEach(function(doc){print("Customer Name: "+doc.first_name)});
+

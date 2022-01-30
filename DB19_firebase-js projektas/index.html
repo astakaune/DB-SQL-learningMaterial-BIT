@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>firebase-js</title>
+    <script src="./index.js" defer></script>
+</head>
+
+<body>
+
+    <input type="text" id="name" placeholder="Name"></input><br><br>
+    <input type="text" id="rollNumber" placeholder="Roll Number"></input><br><br>
+    <input type="text" id="section" placeholder="Section"></input><br><br>
+    <input type="text" id="gender" placeholder="Gender"></input><br><br>
+    <br>
+    <button id="create">Create</button>
+    <button id="read">Read</button>
+    <button id="update">Update</button>
+    <button id="delete">Delete</button>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"></script>
+
+<!-- https://www.youtube.com/watch?v=oxqVnWPg0So -->
+
+
+    <script id="MainScript">
+
+        // ---------------CONFIGURATION------------------------------//
+        var firebaseConfig = {
+            apiKey: "AIzaSyCtvhRD_E5IPMDHqYNlzavGxN8MXESKSfc",
+            authDomain: "fir-js-66559.firebaseapp.com",
+            // databaseURL: "https://fir-js-66559-default-rtdb.europe-west1.firebasedatabase.app/",
+            databaseURL: "https://fir-js-66559.firebaseio.com",
+            projectId: "fir-js-66559",
+            storageBucket: "fir-js-66559.appspot.com",
+            messagingSenderId: "622986042479",
+            appId: "1:622986042479:web:adb3d0e2aaee348758419a"
+        };
+        // Initialize Firebase
+        // const app = initializeApp(firebaseConfig); //firebase configuracijoje zr
+        firebase.initializeApp(firebaseConfig); //video pavyzdyje nurodyta taip
+
+
+        // ---------------Ready Data------------------------------//
+
+        var name;
+        var rollNumber;
+        var section;
+        var gender;
+
+        function read() {
+            name = document.getElementById("name").value;
+            rollNumber = document.getElementById("rollNumber").value;
+            section = document.getElementById("section").value;
+            gender = document.getElementById("gender").value;
+        }
+
+        //------------------Create Process-------------------------------//
+        document.getElementbyId('create').onclick = function () {
+            read();
+            // firebase.database().ref('fir-js-66559-default-rtdb/' + rollNumber).set({
+            firebase.database().ref('student/' + rollNumber).set({
+                NameOfStudent: name,
+                RollNumber: rollNumber,
+                Section: section,
+                Gender: gender,
+            });
+        }
+
+        //------------------Read Process-------------------------------//
+        document.getElementbyId('read').onclick = function () {
+            read();
+            // firebase.database().ref('fir-js-66559-default-rtdb/' + rollNumber).set({
+            firebase.database().ref('student/' + rollNumber).on('value', function (snapshot) {
+                document.getElementbyId('name').value = snapshot.val(NameOfStudent);
+                document.getElementbyId('section').value = snapshot.val(Section);
+                document.getElementbyId('gender').value = snapshot.val(Gender);
+            });
+        }
+
+        //------------------Update Process-------------------------------//
+        document.getElementbyId('update').onclick = function () {
+            read();
+            firebase.database().ref('student/' + rollNumber).update({
+                NameOfStudent: name,
+                Section: section,
+                Gender: gender,
+            });
+        }
+
+        //------------------Delete Process-------------------------------//
+        document.getElementbyId('delete').onclick = function () {
+            read();
+            firebase.database().ref('student/' + rollNumber).remove();
+        }
+
+    </script>
+
+</body>
+
+
+</html>

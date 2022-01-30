@@ -1,0 +1,97 @@
+SUkurti 2 lenteles, ikelti duomenis ir atlikti užduotis.
+
+CREATE TABLE movies (
+    Code INTEGER PRIMARY KEY NOT NULL, 
+    Title VARCHAR(255) NOT NULL,
+	Rating VARCHAR(255) 
+);
+
+CREATE TABLE movieTheaters (
+    Code INTEGER PRIMARY KEY NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Movie INTEGER,
+    FOREIGN KEY (movie) REFERENCES movies(Code)
+    ) ENGINE=INNODB;
+    
+	1 būdas	
+INSERT INTO Movies(Code,Title,Rating) 
+VALUES
+(1,'Citizen Kane','PG'),
+(2,'Singin'' in the Rain','G'),
+(3,'The Wizard of Oz','G'),
+(4,'The Quiet Man',NULL),
+(5,'North by Northwest',NULL),
+(6,'The Last Tango in Paris','NC-17'),
+(7,'Some Like it Hot','PG-13'),
+(8,'A Night at the Opera',NULL),
+(9,'Citizen King','G');
+
+	2 būdas
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(1,'Odeon',5);
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(2,'Imperial',1);
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(3,'Majestic',NULL);
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(4,'Royale',6);
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(5,'Paraiso',3);
+INSERT INTO MovieTheaters(Code,Name,Movie) VALUES(6,'Nickelodeon',NULL);
+
+UŽDUOTYS:
+1.Select the title of all movies.
+SELECT title
+FROM movies;
+
+
+2. Show all the distinct ratings in the database.
+
+SELECT DISTINCT rating
+FROM movies;
+
+3. Show all unrated movies.
+
+SELECT title, rating
+FROM movies
+WHERE rating IS NOT NULL;
+
+4. Select all movie theaters that are not currently showing a movie.
+
+SELECT name, movie
+FROM movietheaters
+WHERE movie IS NOT NULL;
+
+5. Select all data from all movie theaters and, additionally, the data from the movie that is 
+being shown in the theater (if one is being shown).
+
+SELECT *
+FROM movietheaters
+INNER JOIN movies
+ON movietheaters.movie = movies.Code
+WHERE movietheaters.movie IS NOT NULL;
+
+6. Select all data from all movies and, if that movie is being shown in a theater, show the 
+data from the theater.
+
+SELECT *
+FROM movies
+LEFT JOIN movietheaters
+ON movies.code = movietheaters.Movie
+WHERE movietheaters.movie IS NOT NULL;
+
+7. Show the titles of movies not currently being shown in any theaters.
+
+SELECT movies.title
+FROM movies
+INNER JOIN movietheaters
+ON movies.code = movietheaters.movie
+WHERE movietheaters.movie IS NOT NULL;
+
+8. Add the unrated movie "One, Two, Three".
+
+???
+UPDATE movies 
+SET rating = 'one' AND 'two' AND 'three' 
+WHERE rating IS NULL ;
+
+9. Set the rating of all unrated movies to "G".
+
+
+
+10. Remove movie theaters projecting movies rated "NC-17".

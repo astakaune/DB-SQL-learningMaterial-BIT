@@ -1,0 +1,59 @@
+0. https://mockaroo.com/
+1. Sugeneruoti lentelę 'cars' su 1000 įrašų pagal pavyzdį (žr. žemiau)
+2. Įsijungti XAMPP (C:\xampp\xampp-control) su Apache ir MySQL įjungtais procesais
+3. Atsidaryti naršyklę su adresu 'localhost/phpmyadmin'
+4. Susikurti duomenų bazę 'cars' ir importuojame (Import tab'as) parsisiųstą iš mockaroo 'cars.sql' failą
+5. Peržiūrėti sukurtą 'cars' lentelę su 1000 įrašų.
+6. Suformuoti užklausas (SQL tab'e):
+
+
+ex1. surasti raudonas mašinas;
+SELECT * 
+FROM cars
+WHERE color LIKE 'red';
+
+ex2. surasti mašinas tarp 2000 ir 2010 metų;
+SELECT * 
+FROM cars
+WHERE year BETWEEN 2000 AND 2010;
+
+ex3. surasti mašinas, kurių valstybė 'Germany' ir surikiuoti pagal spalvą;
+SELECT * 
+FROM cars
+WHERE country = 'Germany'
+ORDER BY color ASC;
+
+ex4. surasti kiek yra 'taurus' markės mašinų ir surikiuoti pagal kainą mažėjimo tvarka;
+SELECT * 
+FROM cars
+WHERE model LIKE 'taurus'
+ORDER BY price DESC;
+
+ex5. perdažyti mašinas black, kurių spalva pink;
+UPDATE cars
+SET color = 'Green'
+WHERE color LIKE 'pink';
+
+ex6. surasti seniausią mašiną;
+SELECT model, MIN(year) AS 'Oldest car'
+FROM cars;
+
+ex7. surasti koks yra visų mašinų metų vidurkis;
+SELECT AVG(year) AS 'Average age'
+FROM cars;
+
+ex8. surasti brangiausią mašiną;
+SELECT *, MAX(price) AS 'Most expensive car'
+FROM cars;
+
+ex9. atspausdinti kiek mašinų yra kiekvienoje valstybėje 
+(2 stulpeliai- valstybė ir mašinų skaičius joje);
+SELECT country, COUNT(id) AS 'Car quantity'
+FROM cars
+GROUP BY country
+ORDER BY COUNT(id) DESC;
+
+ex10. ištrinti mašinas, kurios pagamintos prieš 2000-uosius 
+metus arba kainuoja mažiau nei 1000 pinigų.
+DELETE FROM cars
+WHERE year < 2000 OR price < 1000;

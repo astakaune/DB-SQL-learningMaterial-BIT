@@ -1,0 +1,23 @@
+
+Teorija:
+1. Kaip prisijungti prie MongoDB?
+2. Kaip sukurti kolekciją?
+3. Kaip prie kolekcijos pridėti dokumentus?
+4. Kaip atlikti CRUD operacijas?
+
+Praktika:
+1. Kempiniukas ir jo draugai
+1.1. Prisijungti prie MongoDB ir sukurti kolekciją chars su dokumentais:
+1.2. Pridėti prie kolekcijos 50 naujų dokumentų (gali būti užpildyta tuščiais įrašais).
+1.3. Atnaujinti Kempiniuko Plačiakelnio adresą. Pagal vairavimo licenziją Kempiniukas gyvena Kriauklių g. 124, Bikini įlanka.
+1.4. Atspausdinti visus dokumentus esančius kolekcijoje.
+1.5. Sukurti galimybę surasti ir atspausdinti dokumentus pagal nurodytą personažo vardą.
+1.6. Surasti ir atspausdinti tuos dokumentus, kuriuose personažų atlyginimas (jūros kriauklėmis) yra mažesnis už vartotojo ranka įvestą.
+1.7. Ištrinti visus dokumentus, kurių id lygus arba didesnis už 4.
+1.8. Pašalinti iš kolekcijos visus likusius dokumentus.
+
+Literatūra:
+1. MongoDB Java CRUD operacijos:
+https://www.mongodb.com/developer/quickstart/java-setup-crud-operations/
+2. MongoDB Java paieškos operacijos:
+https://avaldes.com/mongodb-java-using-find-and-query-operations-example-tutorial/
